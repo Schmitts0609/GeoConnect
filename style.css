@@ -1,0 +1,31 @@
+body{
+    background-color: #E8E4D6;
+}
+header{
+    background-color: #760063;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 5vh;
+    border: none;
+    margin-left: -10px;
+    width: 101%;
+    position: relative;
+    margin-top: -7px;
+}
+header div{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+main{
+    height: 100%;
+}
+footer{
+    background-color: #760063;
+    height: 5vh;
+    border: none;
+    margin-top: 52.6%;
+    margin-left: -10px;
+    width: 101%;
+}
+    
