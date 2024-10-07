@@ -1,0 +1,90 @@
+html{
+    height: 100%;
+}
+header{
+    background-color: #760063;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    border: none;
+    width: 100vw;
+    position: relative;
+    margin-top: -7px;
+}
+.nome-header{
+    margin-left: 3%;
+}
+body{
+    background-color: #E8E4D6;
+    min-height: 100vh;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+}
+#nome-header{
+    color: #E8E4D6;
+    font-family: "Allerta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(1.5rem, 3vh, 2rem);
+    
+}
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-grow: 1;
+    margin-bottom: 0;
+}
+.container-login-usuario{
+    z-index: 1;
+    position: relative;
+    height: 500px;
+    width: 500px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #760063;
+    gap: 4vh;
+    border-radius: 45px;
+}
+.container-login-usuario input{
+    border: none;
+    border-bottom: 1px solid #000000;
+    outline: none;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    background-color: transparent;
+
+
+}
+#enviar-login-usuario{
+    background-color: #E8E4D6;
+    width: 100%;
+    margin-top: 5px;
+    padding: 0.3rem;
+    border: none;
+    color: black;
+    cursor: pointer;
+}
+.inputs-login-usuario input{
+    border: none;
+    border-bottom: 1px solid #000000;
+    outline: none;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: white;
+}
+.inputs-login-usuario input::placeholder{
+color: #E8E4D6;
+}
