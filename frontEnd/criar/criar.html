@@ -24,8 +24,11 @@
             </div>
 
             <section class="coluna grande" id="container-notificacao">
-                <button onclick="openFile()">Abrir Arquivo</button>
-                <button onclick="openDirectory()">Abrir Diretório</button>
+                <form id="anexador-arquivos" enctype="multipart/form-data">
+                    <label for="inputImagem">Selecionar arquivo</label>
+                    <input type="file" name="inputImagem" id="inputImagem">
+                    <button id="submit-arquivo" type="button">Submeter</button>
+                </form>
             </section>
 
             <div class="coluna pequena direita">

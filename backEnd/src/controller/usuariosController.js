@@ -4,6 +4,16 @@ const connection = require("../config/db");
 // Importa o módulo dotenv para carregar as variáveis de ambiente
 const dotenv = require("dotenv").config();
 
+const fs = require("fs");
+const path = require("path");
+
+const uploadPath = path.join(__dirname, '..', 'uploads');
+
+if(!fs.existsSync(uploadPath)) {
+  fs.mkdirSync(uploadPath);
+} 
+
+
 // Função para cadastrar um novo usuário
 async function storeUsuarios(request, response) {
   // Cria um array com os parâmetros do corpo da requisição
@@ -51,21 +61,64 @@ async function storeUsuarios(request, response) {
 
 // Função para listar os usuários
 async function listUsuarios(request, response) {
-  // Cria um array com os parâmetros do corpo da requisição
-  const params = Array(
-    // Email do usuário
-    request.body.email,
-    // Senha do usuário
-    request.body.senha
-  )
   
-  // Imprime os parâmetros no console
-  console.log(params)
+  const params = [
+      request.body.email,
+      request.body.senha
+  ];
   
-  // Query SQL para selecionar os usuários com base no email e senha
-  const query = `SELECT nome, email, senha FROM usuarios WHERE email = ? AND senha = ?`;
+  console.log("Query Parameters:", params);
+
+  const query = `SELECT * FROM usuarios WHERE email = ? AND senha = ?`;
   
-  // Executa a query SQL com os parâmetros
+  connection.query(query, params, (err, results) => {
+      if (err) {
+          response.status(400).json({
+              success: false,
+              message: "Ops, deu problema!",
+              sql: err
+          });
+      } else {
+          response.status(200).json({
+              success: true,
+              message: "Sucesso!",
+              data: results
+          });
+      }
+  });
+}
+
+async function listSeguindo(request, response) {
+  const params = [
+    request.body.UserId,
+  ];
+
+  const query = `SELECT * FROM seguindo WHERE UserId = ?`;
+
+  connection.query(query, params, (err, results) => {
+    if (err) {
+        response.status(400).json({
+            success: false,
+            message: "Ops, deu problema!",
+            sql: err
+        });
+    } else {
+        response.status(200).json({
+            success: true,
+            message: "Sucesso!",
+            data: results
+        });
+    }
+  });
+}
+
+async function storeSeguindo(request, response) {
+  const params = [
+    request.body.UserId,
+    request.body.SeguindoId,
+  ];
+  const query = `INSERT INTO seguindo(UserId, SeguindoId) VALUES(1, 24)`;
+
   connection.query(query, params, (err, results) => {
     // Verifica se a query foi bem-sucedida
     if(results) {
@@ -90,7 +143,51 @@ async function listUsuarios(request, response) {
   })
 }
 
-// Exporta as funções para serem utilizadas em outros arquivos
+ async function storeImagem(request, response) {
+ console.log(request.files)
+ if (!request.files) {
+     return response.status(400).json({
+         success: false,
+         message: "No files were uploaded."
+     });
+ }
+
+
+
+ const arquivo = request.files.inputImagem; // Make sure this matches the frontend
+
+ const arquivoNome = Date.now() + path.extname(arquivo.name);
+
+ arquivo.mv(path.join(uploadPath, arquivoNome), (erro) => {
+     if (erro) {
+         return response.status(500).json({
+                 success: false,
+                 message: "Error while moving the file",
+             error: erro
+         });
+     }
+     console.log(arquivoNome, arquivo);
+     const params = [arquivoNome];
+     const query = `INSERT INTO postagens(imagemNome) VALUES (?)`;
+      
+     connection.query(query, params, (err, results) => {
+         if (err) {
+             return response.status(500).json({
+                 success: false,
+                 message: "Error while inserting into database",
+                 error: err
+             });
+         }
+          
+         response.status(200).json({
+             success: true,
+             message: "File uploaded successfully",
+             fileName: arquivoNome
+         });
+     });
+ });
+}
+//Exporta as funções para serem utilizadas em outros arquivos
 module.exports = {
-  storeUsuarios, listUsuarios
+  storeUsuarios, listUsuarios, listSeguindo, storeSeguindo, storeImagem
 }

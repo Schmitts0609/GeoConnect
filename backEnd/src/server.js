@@ -1,8 +1,33 @@
-// Importa a instância do aplicativo Express do arquivo app.js
-const app = require('./app');
+const express = require('express')
+const cors = require('cors')
+require('dotenv').config()
+const swaggerUi = require("swagger-ui-express")
+const swaggerJsDoc = require("swagger-jsdoc")
 
-// Obtém a porta definida no aplicativo Express
-const port = app.get('port');
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: "3.0.0",
+        info: {
+            title: "GeoConnect",
+            version: "1.0.0",
+            description: "Gerenciamento da plataforma",
+        },
+        servers: [{ url: "http://localhost:3000"}],
+    },
+    apis: [` ${__dirname}/routes/*.js`], //caminho para as rotas
+};
 
-// Inicia o servidor e escuta na porta definida
-app.listen(port, () => console.log(`Running on port ${port}!`));
+const app = express()
+const port = process.env.PORT || 3000
+
+app.use(express.json())
+app.use(cors())
+
+const usuariosRouter = require('./routes/usuariosRouter')
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+app.use (express.json())
+app .use(cors())
+app.use('/api', usuariosRouter)
+
+app.listen(port, () => console.log(`Run on port ${port}!`));    

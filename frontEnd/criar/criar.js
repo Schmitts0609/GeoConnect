@@ -1,33 +1,29 @@
-async function openFile() {
+let button = document.getElementById("submit-arquivo");
+
+button.onclick = async function() {
+    let form = document.getElementById("anexador-arquivos");
+    let data = new FormData(form);
+
+    console.log(data)
+
     try {
-        // Abrir o seletor de arquivo
-        const [fileHandle] = await window.showOpenFilePicker();
+        console.log("Postando")
+        const response = await fetch('http://localhost:3000/api/store/imagem', {
+            method: "POST",
+            body: data
+        });
 
-        // Acessar o arquivo
-        const file = await fileHandle.getFile();
+        console.log("Response status:", response.status);
+        let content = await response.json();
+        console.log("Server response:", content);
 
-        // Ler o conteúdo do arquivo como texto
-        const contents = await file.text();
-
-        console.log(contents);
-    } catch (err) {
-        console.error("Erro ao abrir o arquivo:", err);
-    }
-}
-async function openDirectory() {
-    if (!window.showDirectoryPicker) {
-        console.error("Browser does not support the File System Access API");
-        return;
-    }
-    try {
-        // Abrir o seletor de diretório
-        const directoryHandle = await window.showDirectoryPicker();
-
-        // Iterar sobre os arquivos no diretório
-        for await (const [name, handle] of directoryHandle.entries()) {
-            console.log(name, handle);
+        if(content.success) {
+            console.log("Sucesso");
+        } else {
+            console.log("Erro");
+            console.log(content.message);
         }
-    } catch (err) {
-        console.error("Erro ao abrir o diretório:", err);
+    } catch (error) {
+        console.error("Error:", error);
     }
 }
