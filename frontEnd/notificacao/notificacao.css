@@ -43,8 +43,64 @@ main{
 .linha{
     height: auto;
     display: flex;
-    margin-top: 8.45%;
+    margin-top: 2%;
     width: 100vw;
+}
+.stories-container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 5rem;
+
+    overflow-x: auto;
+    white-space: nowrap;
+    border-bottom: 2px solid #760063;
+    justify-content: space-around;
+    position: relative;
+    height: 9%;
+
+}
+
+.stories-container .content{
+    display: flex;
+    display: inline;
+    margin: 0;
+    text-align: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease-in;
+    width: 5rem;
+    justify-content: space-between;
+    justify-content: center;
+
+}
+
+.stories-container .content:hover{
+    transform: scale(1.1);
+}
+
+.stories-container .content .img-container{
+    display: inline-block;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100%;
+
+
+}
+
+.stories-container .content .img-container img{
+    display: block;
+    width: 4rem;
+    height: 100%;
+    object-fit: cover;
+    clip-path: circle(42%);
+}
+.text-container{
+    width: 4rem;
+    position: relative;
+    font-size: 15px;
+    align-items: center;
 }
 .coluna{
     float: left;
@@ -115,9 +171,7 @@ main{
     align-items: center;
 }
 
-.coluna.pequena.direita section:not(:first-child){
-    margin-bottom: 260px;
-}
+    
 .coluna.pequena.direita section{
     width: 45%;
     height: 50px;
@@ -141,7 +195,53 @@ main{
     font-size: 20px;
     margin-top: 10px;
 }
+.mensagem{
+    display: flex;
+    align-items: center;
+}
 
+.mensagem img{
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.mensagem button{
+    background-color: black;
+    color: #E8E4D6;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+    padding: 10px 15px;
+}
+
+.sugerido{
+    display: flex;
+    align-items: center;
+}
+
+.sugerido img{
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.sugerido button{
+    background-color: black;
+    color: #E8E4D6;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+    padding: 10px 15px;
+}
 footer{
     background-color: #760063;
     height: 5vh;

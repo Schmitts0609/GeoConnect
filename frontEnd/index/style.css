@@ -239,9 +239,7 @@ footer{
     justify-content: space-between;
     align-items: center;
 }
-.coluna.pequena.direita section:not(:first-child){
-    margin-bottom: 260px;
-}
+
 .coluna.pequena.direita section{
     width: 45%;
     height: 50px;
@@ -266,7 +264,53 @@ footer{
     font-size: 20px;
     margin-top: 10px;
 }
+.mensagem{
+    display: flex;
+    align-items: center;
+}
 
+.mensagem img{
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.mensagem button{
+    background-color: black;
+    color: #E8E4D6;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+    padding: 10px 15px;
+}
+
+.sugerido{
+    display: flex;
+    align-items: center;
+}
+
+.sugerido img{
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.sugerido button{
+    background-color: black;
+    color: #E8E4D6;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+    padding: 10px 15px;
+}
 #feed-container {
     overflow-y: scroll; 
     scrollbar-width: none;
