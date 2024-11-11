@@ -54,24 +54,30 @@ main{
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 5rem;
-    grid-gap: 2rem;
+
     overflow-x: auto;
     white-space: nowrap;
     border-bottom: 2px solid #760063;
     justify-content: space-around;
     position: relative;
     height: 9%;
+
 }
 
 .stories-container .content{
-    display: grid;
-    grid-gap: 0.5rem;
+    display: flex;
+    display: inline;
     margin: 0;
     text-align: center;
+    align-items: center;
     position: relative;
     cursor: pointer;
     user-select: none;
     transition: all 0.2s ease-in;
+    width: 5rem;
+    justify-content: space-between;
+    justify-content: center;
+
 }
 
 .stories-container .content:hover{
@@ -80,18 +86,25 @@ main{
 
 .stories-container .content .img-container{
     display: inline-block;
-    width: 5rem;
-    height: 5rem;
-    border-radius: 50%;
-    background: ;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100%;
+
+
 }
 
 .stories-container .content .img-container img{
     display: block;
-    width: 100%;
+    width: 4rem;
     height: 100%;
     object-fit: cover;
     clip-path: circle(42%);
+}
+.text-container{
+    width: 4rem;
+    position: relative;
+    font-size: 15px;
+    align-items: center;
 }
 
 .coluna{
@@ -255,7 +268,13 @@ footer{
 }
 
 #feed-container {
-    overflow-y: auto; /* adiciona uma barra de rolagem vertical */
-    height: 650px; /* define a altura do container do feed */
-    padding: 20px; /* adiciona um padding para que o conteúdo não fique muito próximo da borda */
-  }
+    overflow-y: scroll; 
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    height: 650px;
+    padding: 20px;
+}
+
+#feed-container::-webkit-scrollbar {
+    display: none;
+}

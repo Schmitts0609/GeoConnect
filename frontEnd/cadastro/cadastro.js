@@ -43,50 +43,6 @@ buttonCadastroUsuario.onclick = async function() {
   }
 };
 
-// Adiciona um evento de clique ao botão de cadastro de estabelecimento
-buttonCadastroEstabelecimento.onclick = async function() {
-  try {
-    // Seleciona os valores dos inputs de cadastro de estabelecimento
-    let nome = document.getElementById("input-nome-cadastro-estabelecimento").value;
-    let email = document.getElementById("input-email-cadastro-estabelecimento").value;
-    let cnpj = document.getElementById("input-cnpj-cadastro-estabelecimento").value;
-    let senha = document.getElementById("input-senha-cadastro-estabelecimento").value;
-    let nickname = document.getElementById("input-nickname-cadastro-estabelecimento").value;
-    
-    // Cria um objeto com os dados do estabelecimento
-    let dadosEstabelecimento = {nome, email, cnpj, senha, nickname};
-
-    // Faz uma requisição POST para a API para cadastrar o estabelecimento
-    const response = await fetch('http://localhost:3000/api/store/estabelecimentos', {
-      method: 'POST',
-      headers: {'Content-type': 'application/json;charset=UTF-8'},
-      body: JSON.stringify(dadosEstabelecimento)
-    });
-
-    // Verifica se a resposta foi bem-sucedida
-    if (!response.ok) {
-      // Lança um erro se a resposta não foi bem-sucedida
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    // Converte a resposta em JSON
-    let content = await response.json();
-
-    // Verifica se o cadastro foi bem-sucedido
-    if(content.success) {
-      // Mostra uma mensagem de sucesso
-      alert("Sucesso");
-    } else {
-      // Mostra uma mensagem de erro
-      alert("Erro ao cadastrar estabelecimento");
-    }
-  } catch (error) {
-    // Mostra um erro no console e uma mensagem de erro para o usuário
-    console.error('Error:', error);
-    alert('Erro ao cadastrar estabelecimento');
-  }
-};
-
 // Seleciona o toggle de cadastro
 var toggler = document.querySelector('.switch-cadastro');
 
