@@ -2,6 +2,10 @@
 html{
     height: 100%;
 }
+a{
+    color: #760063;
+    text-decoration: none;
+}
 header{
     background-color: #760063;
     display: flex;
@@ -46,7 +50,8 @@ main{
     font-weight: 400;
     font-style: normal;
     position: fixed;
-    top: 25%;
+    top: 23.5%;
+    color: black;
 }
 #pai-cadastro{
     width: 100%;
@@ -55,6 +60,7 @@ main{
     flex-direction: row;
     justify-content: center;
     justify-content: space-evenly;
+    margin-bottom: 40px;
 }
 .container-cadastro-usuario{
     z-index: 1;
@@ -65,62 +71,10 @@ main{
     display: flex;
     justify-content: center;
     flex-direction: column;
-    background-color: #760063;
+    background-color: #E8E4D6;
     gap: 4vh;
     border-radius: 45px;
-}
-.container-cadastro-estabelecimento{
-    z-index: 1;
-    position: relative;
-    height: 500px;
-    width: 500px;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    background-color: #760063;
-    border-radius: 45px;
-}
-.switch-cadastro, .switch-cadastro .switch-bolinha {
-    -moz-transition: all 0.2s ease-in;
-    -webkit-transition: all 0.2s ease-in;
-    -o-transition: all 0.2s ease-in;
-    transition: all 0.2s ease-in;
-}
-
-.switch-cadastro {
-    height: 30px;
-    width: 55px;
-    display: inline-block;
-    background-color: gray;
-    margin-bottom: 5px;
-    border-radius: 30px;
-    cursor: pointer;
-    border: solid 1px #d2d6de;
-    box-shadow: inset 1px 1px 9px -3px rgba(4, 4, 4, 0.08), 1px 2px 6px -2px rgba(0, 0, 0, 0.01);
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-}
-
-.switch-cadastro .switch-bolinha {
-    width: 28px;
-    height: 26px;
-    display: inline-block;
-    background-color: #ffffff;
-    border: solid 1px rgba(126, 126, 126, 0.07);
-    box-shadow: 0 1px 3px rgba(107, 106, 106, 0.26), 0 5px 1px rgba(107, 106, 106, 0.13);
-    border-radius: 26px;
-    margin: 1px 1px;
-}
-
-.switch-cadastro.active {
-    background-color: #77e189;
-    border: solid 1px transparent;
-}
-
-.switch-cadastro.active .switch-bolinha {
-    margin-left: 24px;
+    border: 2px black solid;
 }
 footer{
     background-color: #760063;
@@ -131,25 +85,25 @@ footer{
 }
 
 #enviar-cadastro-usuario{
-    background-color: #E8E4D6;
+    background-color: black;
     width: 100%;
-    margin-top: 5px;
+    margin-top: 20px;
     padding: 0.3rem;
     border: none;
-    color: black;
+    color: #E8E4D6;
     cursor: pointer;
 }
 .inputs-do-cadastro-usuario input{
         border: none;
-        border-bottom: 1px solid #000000;
+        border-bottom: 1px solid black;
         outline: none;
         padding: 10px;
         width: 100%;
         margin-bottom: 20px;
         box-sizing: border-box;
         background-color: transparent;
-        color: white;
+        color: black;
 }
 .inputs-do-cadastro-usuario input::placeholder{
-    color: #E8E4D6;
+    color: black;
 }

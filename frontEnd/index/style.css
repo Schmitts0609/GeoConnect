@@ -80,10 +80,6 @@ main{
 
 }
 
-.stories-container .content:hover{
-    transform: scale(1.1);
-}
-
 .stories-container .content .img-container{
     display: inline-block;
     width: 4rem;
@@ -148,10 +144,11 @@ footer{
 }
 
 .post img {
-    width: 100%;
+    width: 75%;
     height: auto;
     object-fit: cover;
     border-radius: 10px;
+    min-width: 300px;
 }
 .perfil-post{
     display: flex;
@@ -164,13 +161,19 @@ footer{
     padding-top: 25px;
 }
 .perfil-post img {
-    min-width: 50px;
+    max-width: 50px;
+    width: 100%;
+    min-height: 50px;
+    height: auto;
     border-radius: 50%;
     object-fit: cover;
-  }
+}
 .perfil-post p{
     margin-left: 10px;
     font-size: 20px;
+    height: 5vh;
+    margin-top: 10px;
+
 }
 .post p {
     font-size: 14px;
@@ -225,11 +228,20 @@ footer{
 #home-button{
     background-color: black;
     color: #E8E4D6;
+    border: 1px black solid
 }
-
-
-
-
+#notificacao-button{
+    border: 2px black solid
+}
+#criar-button{
+    border: 2px black solid
+}
+#pesquisar-button{
+    border: 2px black solid
+}
+#perfil-button{
+    border: 2px black solid
+}
 
 
 .coluna.pequena.direita{
@@ -264,52 +276,52 @@ footer{
     font-size: 20px;
     margin-top: 10px;
 }
-.mensagem{
+.mensagem, .sugerido {
     display: flex;
     align-items: center;
+    flex-wrap: nowrap; /* Impede que os itens se movam para a próxima linha */
+    justify-content: space-between; /* Distribui espaço entre os itens */
+    margin: 10px 0; /* Adiciona um espaço entre as mensagens sugeridas */
 }
 
-.mensagem img{
-    width: 50px;
-    height: auto;
+.mensagem img, .sugerido img {
+    width: 3vw; 
+    height: auto; 
     margin-right: 10px;
     border-radius: 50%;
+    max-width: 3vw;
+    min-width: 50px;
+    flex-shrink: 0; /* Impede que a imagem encolha */
 }
 
-.mensagem button{
+.mensagem button, .sugerido button {
     background-color: black;
     color: #E8E4D6;
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    width: 150px;
+    width: 150px; /* Mantém a largura fixa do botão */
+    max-width: 150px; /* Limita a largura máxima do botão */
     height: 50px;
     font-size: 15px;
     padding: 10px 15px;
+    margin-top: 10px; 
 }
 
-.sugerido{
-    display: flex;
-    align-items: center;
+.mensagem button:hover, .sugerido button:hover {
+    background-color: #760063;
 }
 
-.sugerido img{
-    width: 50px;
-    height: auto;
-    margin-right: 10px;
-    border-radius: 50%;
-}
+/* Media Queries para ajustes adicionais, se necessário */
+@media (max-width: 768px) {
+    .mensagem, .sugerido {
+        flex-direction: row; /* Mantém a direção em linha em telas menores */
+        align-items: center; /* Alinha os itens no centro */
+    }
 
-.sugerido button{
-    background-color: black;
-    color: #E8E4D6;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    width: 150px;
-    height: 50px;
-    font-size: 15px;
-    padding: 10px 15px;
+    .mensagem button, .sugerido button {
+        width: 150px; /* Mantém a largura fixa do botão */
+    }
 }
 #feed-container {
     overflow-y: scroll; 

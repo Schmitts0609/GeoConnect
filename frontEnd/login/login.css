@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Allerta&display=swap');
 html{
     height: 100%;
+}
+a{
+    color: #760063;
+    text-decoration: none;
 }
 header{
     background-color: #760063;
@@ -49,9 +54,15 @@ main{
     display: flex;
     justify-content: center;
     flex-direction: column;
-    background-color: #760063;
+    background-color: #E8E4D6;
     gap: 4vh;
     border-radius: 45px;
+    border: 2px solid black
+}
+.container-login-usuario h1{
+    font-family: "Allerta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 .container-login-usuario input{
     border: none;
@@ -66,12 +77,12 @@ main{
 
 }
 #enviar-login-usuario{
-    background-color: #E8E4D6;
+    background-color: black;
     width: 100%;
     margin-top: 5px;
     padding: 0.3rem;
     border: none;
-    color: black;
+    color: #E8E4D6;
     cursor: pointer;
 }
 .inputs-login-usuario input{
@@ -83,8 +94,8 @@ main{
     margin-bottom: 20px;
     box-sizing: border-box;
     background-color: transparent;
-    color: white;
+    color: black;
 }
 .inputs-login-usuario input::placeholder{
-color: #E8E4D6;
+color: black;
 }
