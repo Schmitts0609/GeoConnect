@@ -6,7 +6,8 @@ const {
   storeUsuarios,
   listSeguindo,
   storeSeguindo,
-  storeImagem
+  storeImagem,
+  listPesquisa
 } = require('../controller/usuariosController')
  
 /**
@@ -93,5 +94,22 @@ router.post('/store/seguindo', storeSeguindo);
  *                type: object
  */
 router.post('/store/imagem', storeImagem);
+
+/**
+ * @swagger
+ * /list/pesquisa:
+ *  post:
+ *    summary: Pesquisa os usuários no banco
+ *    response:
+ *      200:
+ *        description: Sucesso!
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                type: object
+ */
+router.post('/list/pesquisa', listPesquisa);
 
 module.exports = router;

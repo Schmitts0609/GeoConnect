@@ -7,24 +7,36 @@ const dotenv = require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
 
-const uploadPath = path.join(__dirname, '..', 'uploads');
+const uploadPath = path.join(__dirname, "..", "uploads");
 
-if(!fs.existsSync(uploadPath)) {
+// Irá criar a pasta uploads se ela já não existir
+if (!fs.existsSync(uploadPath)) {
   fs.mkdirSync(uploadPath);
-} 
+}
+
+// Caminhos para as subpastas curriculos e img_perfil
+const postagemPath = path.join(uploadPath, "ImagemPostagem");
+const imagemPerfilPath = path.join(uploadPath, "ImagemPerfil");
+
+// Irá criar a pasta curriculos se ela já não existir
+if (!fs.existsSync(postagemPath)) {
+  fs.mkdirSync(postagemPath);
+}
+
+// Irá criar a pasta img_perfil se ela já não existir
+if (!fs.existsSync(imagemPerfilPath)) {
+  fs.mkdirSync(imagemPerfilPath);
+}
+
 
 
 // Função para cadastrar um novo usuário
 async function storeUsuarios(request, response) {
   // Cria um array com os parâmetros do corpo da requisição
   const params = Array(
-    // Nome do usuário
     request.body.nome,
-    // Email do usuário
     request.body.email,
-    // Senha do usuário
     request.body.senha,
-    // Nickname do usuário
     request.body.nickname
   );
   
@@ -143,32 +155,23 @@ async function storeSeguindo(request, response) {
   })
 }
 
- async function storeImagem(request, response) {
- console.log(request.files)
- if (!request.files) {
-     return response.status(400).json({
-         success: false,
-         message: "No files were uploaded."
-     });
- }
+async function storeImagem(request, response) {
+  console.log("Chamou a função")
+  const arquivo = request.files.inputImagem; // Make sure this matches the frontend
+  console.log('arquivo file: ', arquivo)
 
+  const arquivoNome = Date.now() + path.extname(arquivo.name);
 
-
- const arquivo = request.files.inputImagem; // Make sure this matches the frontend
-
- const arquivoNome = Date.now() + path.extname(arquivo.name);
+  if (!request.files) {
+      return response.status(400).json({
+          success: false,
+          message: "No files were uploaded."
+      });
+  }
 
  arquivo.mv(path.join(uploadPath, arquivoNome), (erro) => {
-     if (erro) {
-         return response.status(500).json({
-                 success: false,
-                 message: "Error while moving the file",
-             error: erro
-         });
-     }
-     console.log(arquivoNome, arquivo);
      const params = [arquivoNome];
-     const query = `INSERT INTO postagens(imagemNome) VALUES (?)`;
+     const query = `INSERT INTO postagens(NomeImagem) VALUES (?)`;
       
      connection.query(query, params, (err, results) => {
          if (err) {
@@ -187,7 +190,60 @@ async function storeSeguindo(request, response) {
      });
  });
 }
+
+async function listUsuarios(request, response) {
+  
+  const params = [
+      request.body.email,
+      request.body.senha
+  ];
+  
+  console.log("Query Parameters:", params);
+
+  const query = `SELECT * FROM usuarios WHERE email = ? AND senha = ?`;
+  
+  connection.query(query, params, (err, results) => {
+      if (err) {
+          response.status(400).json({
+              success: false,
+              message: "Ops, deu problema!",
+              sql: err
+          });
+      } else {
+          response.status(200).json({
+              success: true,
+              message: "Sucesso!",
+              data: results
+          });
+      }
+  });
+}
+
+async function listPesquisa(request, response) {
+  const params = [
+    request.body.barra-pesquisar,
+  ];
+  console.log("testado")
+  const query = `SELECT * FROM usuarios WHERE Nickname LIKE "?%"`;
+
+  connection.query(query, params, (err, results) => {
+    if (err) {
+        response.status(400).json({
+            success: false,
+            message: "Ops, deu problema!",
+            sql: err
+        });
+    } else {
+        response.status(200).json({
+            success: true,
+            message: "Sucesso!",
+            data: results
+        });
+    }
+  });
+}
+
 //Exporta as funções para serem utilizadas em outros arquivos
 module.exports = {
-  storeUsuarios, listUsuarios, listSeguindo, storeSeguindo, storeImagem
+  storeUsuarios, listUsuarios, listSeguindo, storeSeguindo, storeImagem, listPesquisa
 }

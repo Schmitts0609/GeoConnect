@@ -2,9 +2,12 @@ let button = document.getElementById("submit-arquivo");
 
 button.onclick = async function() {
     let form = document.getElementById("anexador-arquivos");
+
     let data = new FormData(form);
 
-    console.log(data)
+    data.append("Imagem", form.files[0]);
+
+    console.log(data);
 
     try {
         console.log("Postando")
@@ -13,7 +16,6 @@ button.onclick = async function() {
             body: data
         });
 
-        console.log("Response status:", response.status);
         let content = await response.json();
         console.log("Server response:", content);
 
