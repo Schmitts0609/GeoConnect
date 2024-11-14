@@ -1,4 +1,5 @@
 // Importa a conexão com o banco de dados
+const { log } = require("console");
 const connection = require("../config/db");
 
 // Importa o módulo dotenv para carregar as variáveis de ambiente
@@ -220,11 +221,9 @@ async function listUsuarios(request, response) {
 }
 
 async function listPesquisa(request, response) {
-  const params = [
-    request.body.barra-pesquisar,
-  ];
-  console.log("testado")
-  const query = `SELECT * FROM usuarios WHERE Nickname LIKE "?%"`;
+  const valorPesquisa = request.body.valorPesquisa;
+  const params = [`${valorPesquisa}%`]
+  const query = `SELECT * FROM usuarios WHERE Nickname LIKE ?`;
 
   connection.query(query, params, (err, results) => {
     if (err) {

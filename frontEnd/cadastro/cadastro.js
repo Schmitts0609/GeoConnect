@@ -1,9 +1,6 @@
 // Seleciona o botão de cadastro de usuário
 let buttonCadastroUsuario = document.getElementById("enviar-cadastro-usuario");
 
-// Seleciona o botão de cadastro de estabelecimento
-let buttonCadastroEstabelecimento = document.getElementById("enviar-cadastro-estabelecimento");
-
 // Adiciona um evento de clique ao botão de cadastro de usuário
 buttonCadastroUsuario.onclick = async function() {
   try {
@@ -41,20 +38,4 @@ buttonCadastroUsuario.onclick = async function() {
     console.error('Error:', error);
     alert('Erro ao conectar com a base');
   }
-};
-
-// Seleciona o toggle de cadastro
-var toggler = document.querySelector('.switch-cadastro');
-
-// Adiciona um evento de clique ao toggle de cadastro
-toggler.onclick = function(){
-  // Alterna a classe 'active' do toggle
-  toggler.classList.toggle('active');
-  
-  // Verifica se o toggle está ativo
-  if (toggler.classList.contains('active')) {
-    console.log("ativado");
-  } else {
-    console.log("desativado");
-  };
 };
