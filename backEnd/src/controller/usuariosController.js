@@ -4,9 +4,10 @@ const connection = require("../config/db");
 
 // Importa o módulo dotenv para carregar as variáveis de ambiente
 const dotenv = require("dotenv").config();
-
 const fs = require("fs");
 const path = require("path");
+const stringSimilarity = require('string-similarity');
+
 
 const uploadPath = path.join(__dirname, "..", "uploads");
 
@@ -221,28 +222,58 @@ async function listUsuarios(request, response) {
 }
 
 async function listPesquisa(request, response) {
-  const valorPesquisa = request.body.valorPesquisa;
-  const params = [`%${valorPesquisa}%`, `%${valorPesquisa}%`]
-  const query = `SELECT * FROM usuarios
-  WHERE SOUNDEX(LOWER(Nickname)) = SOUNDEX(LOWER(?))
-    OR SOUNDEX(Nome) = SOUNDEX(?) LIMIT 10`;
+  const valorPesquisa = request.body.valorPesquisa.toLowerCase();
 
-  connection.query(query, params, (err, results) => {
+  // Obtenha todos os usuários ou aqueles que correspondem aproximadamente
+  const query = `SELECT Nome, Nickname FROM usuarios`;
+
+  connection.query(query, (err, results) => {
     if (err) {
-        response.status(400).json({
-            success: false,
-            message: "Ops, deu problema!",
-            sql: err
-        });
+      console.error('Erro na consulta:', err);
+      response.status(500).json({
+        success: false,
+        message: "Erro no servidor",
+        error: err
+      });
     } else {
-        response.status(200).json({
-            success: true,
-            message: "Sucesso!",
-            data: results
-        });
+      // Calcular a similaridade entre o termo de pesquisa e cada resultado
+      const valorPesquisaLower = valorPesquisa.toLowerCase();
+
+      // Mapear os resultados para incluir a pontuação de similaridade
+      const resultadosComPontuacao = results.map(user => {
+        const nomeLower = user.Nome.toLowerCase();
+        const nicknameLower = user.Nickname.toLowerCase();
+
+        // Calcular a similaridade com o Nome e o Nickname
+        const similarityNome = stringSimilarity.compareTwoStrings(valorPesquisaLower, nomeLower);
+        const similarityNickname = stringSimilarity.compareTwoStrings(valorPesquisaLower, nicknameLower);
+
+        // Escolher a maior similaridade entre Nome e Nickname
+        const maiorSimilaridade = Math.max(similarityNome, similarityNickname);
+
+        // Retornar o usuário com a pontuação de similaridade
+        return {
+          ...user,
+          similarity: maiorSimilaridade
+        };
+      });
+
+      // Filtrar os resultados com base em um threshold de similaridade (opcional)
+      const threshold = 0.2; // Ajuste conforme necessário
+      const resultadosFiltrados = resultadosComPontuacao.filter(user => user.similarity >= threshold);
+
+      // Ordenar os resultados pela pontuação de similaridade em ordem decrescente
+      resultadosFiltrados.sort((a, b) => b.similarity - a.similarity);
+
+      response.status(200).json({
+        success: true,
+        message: 'Sucesso!',
+        data: resultadosFiltrados
+      });
     }
   });
 }
+
 
 //Exporta as funções para serem utilizadas em outros arquivos
 module.exports = {
