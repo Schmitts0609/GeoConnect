@@ -222,8 +222,10 @@ async function listUsuarios(request, response) {
 
 async function listPesquisa(request, response) {
   const valorPesquisa = request.body.valorPesquisa;
-  const params = [`${valorPesquisa}%`]
-  const query = `SELECT * FROM usuarios WHERE Nickname LIKE ?`;
+  const params = [`%${valorPesquisa}%`, `%${valorPesquisa}%`]
+  const query = `SELECT * FROM usuarios
+  WHERE SOUNDEX(LOWER(Nickname)) = SOUNDEX(LOWER(?))
+    OR SOUNDEX(Nome) = SOUNDEX(?) LIMIT 10`;
 
   connection.query(query, params, (err, results) => {
     if (err) {

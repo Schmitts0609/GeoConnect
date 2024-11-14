@@ -159,6 +159,28 @@ main{
     color: #760063;
 }
 
+/* Estilos para o container dos resultados */
+#search-results {
+    margin-top: 20px;
+  }
+  
+  .user-result p {
+    margin: 5px 0;
+  }
+
+  .user-result{
+    background-color: black;
+    color: #E8E4D6;
+    border: 3px #760063 solid;
+    border-bottom: none;
+    padding: 5px;
+    text-align: left;
+  }
+  .user-result:last -child{
+    border-bottom: 3px #760063 solid;
+  }
+  
+
 .coluna.pequena.esquerda{
     display: flex;
     flex-direction: column;
