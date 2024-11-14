@@ -42,9 +42,6 @@ async function storeUsuarios(request, response) {
     request.body.nickname
   );
   
-  // Imprime os parâmetros no console
-  console.log(params);
-  
   // Query SQL para inserir um novo usuário no banco de dados
   const query = "INSERT INTO usuarios(nome, email, senha, nickname) VALUES(?, ?, ?, ?)";
   
@@ -158,40 +155,43 @@ async function storeSeguindo(request, response) {
 }
 
 async function storeImagem(request, response) {
-  console.log("Chamou a função")
-  const arquivo = request.files.inputImagem; // Make sure this matches the frontend
-  console.log('arquivo file: ', arquivo)
+  console.log("Chamou a função");
 
-  const arquivoNome = Date.now() + path.extname(arquivo.name);
+  console.log('request.body:', request.body);
+  console.log('request.file:', request.file);
 
-  if (!request.files) {
-      return response.status(400).json({
-          success: false,
-          message: "No files were uploaded."
-      });
+  if (!request.file) {
+    return response.status(400).json({
+      success: false,
+      message: "Nenhum arquivo foi enviado."
+    });
   }
 
- arquivo.mv(path.join(uploadPath, arquivoNome), (erro) => {
-     const params = [arquivoNome];
-     const query = `INSERT INTO postagens(NomeImagem) VALUES (?)`;
-      
-     connection.query(query, params, (err, results) => {
-         if (err) {
-             return response.status(500).json({
-                 success: false,
-                 message: "Error while inserting into database",
-                 error: err
-             });
-         }
-          
-         response.status(200).json({
-             success: true,
-             message: "File uploaded successfully",
-             fileName: arquivoNome
-         });
-     });
- });
+  const arquivo = request.file;
+  console.log('Arquivo recebido:', arquivo);
+
+  const arquivoNome = arquivo.filename;
+
+  const params = [arquivoNome];
+  const query = `INSERT INTO postagens(NomeImagem) VALUES (?)`;
+
+  connection.query(query, params, (err, results) => {
+    if (err) {
+      return response.status(500).json({
+        success: false,
+        message: "Erro ao inserir no banco de dados.",
+        error: err
+      });
+    }
+
+    response.status(200).json({
+      success: true,
+      message: "Arquivo enviado com sucesso.",
+      fileName: arquivoNome
+    });
+  });
 }
+
 
 async function listUsuarios(request, response) {
   

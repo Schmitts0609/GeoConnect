@@ -1,31 +1,39 @@
 let button = document.getElementById("submit-arquivo");
+button.onclick = async function(event) {
+  event.preventDefault(); // Impede o comportamento padrão do formulário
 
-button.onclick = async function() {
-    let form = document.getElementById("anexador-arquivos");
+  let inputImagem = document.getElementById("inputImagem");
 
-    let data = new FormData(form);
+  if (inputImagem.files.length === 0) {
+    alert("Por favor, selecione um arquivo.");
+    return;
+  }
 
-    data.append("Imagem", form.files[0]);
+  let data = new FormData();
+  data.append("inputImagem", inputImagem.files[0]);
 
-    console.log(data);
+  // Opcional: inspecionar o conteúdo do FormData
+  for (var pair of data.entries()) {
+    console.log(pair[0]+ ', ' + pair[1]);
+  }
 
-    try {
-        console.log("Postando")
-        const response = await fetch('http://localhost:3000/api/store/imagem', {
-            method: "POST",
-            body: data
-        });
+  try {
+    console.log("Postando");
+    const response = await fetch('http://localhost:3000/api/store/imagem', {
+      method: "POST",
+      body: data
+    });
 
-        let content = await response.json();
-        console.log("Server response:", content);
+    let content = await response.json();
+    console.log("Server response:", content);
 
-        if(content.success) {
-            console.log("Sucesso");
-        } else {
-            console.log("Erro");
-            console.log(content.message);
-        }
-    } catch (error) {
-        console.error("Error:", error);
+    if(content.success) {
+      console.log("Sucesso");
+    } else {
+      console.log("Erro");
+      console.log(content.message);
     }
-}
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
