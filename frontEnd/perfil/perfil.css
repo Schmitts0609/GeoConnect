@@ -47,17 +47,11 @@ main{
     width: 100vw;
 }
 .stories-container {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 5rem;
-
+    display: flex;
     overflow-x: auto;
-    white-space: nowrap;
     border-bottom: 2px solid #760063;
-    justify-content: space-around;
-    position: relative;
+    padding: 10px;
     height: 9%;
-
 }
 
 .stories-container .content{
