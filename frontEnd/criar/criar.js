@@ -1,6 +1,6 @@
 let button = document.getElementById("submit-arquivo");
 button.onclick = async function(event) {
-  event.preventDefault(); // Impede o comportamento padrão do formulário
+  event.preventDefault(); // impede o comportamento padrão do formulario
 
   let inputImagem = document.getElementById("inputImagem");
 
@@ -12,7 +12,7 @@ button.onclick = async function(event) {
   let data = new FormData();
   data.append("inputImagem", inputImagem.files[0]);
 
-  // Opcional: inspecionar o conteúdo do FormData
+  // inspecionar o conteudo do FormData
   for (var pair of data.entries()) {
     console.log(pair[0]+ ', ' + pair[1]);
   }

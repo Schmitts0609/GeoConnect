@@ -45,12 +45,6 @@ CREATE TABLE resgate_cupom (
     Data_utilizado varchar(255)
 );
 
-CREATE TABLE seguindo (
-    UserId int primary key,
-    SeguindoId int,
-    Data_seguindo timestamp
-);
-
 CREATE TABLE usuarios (
     id int primary key auto_increment,
     Nome varchar(255) not null,
@@ -58,7 +52,8 @@ CREATE TABLE usuarios (
     Email varchar(254) not null,
     Senha varchar(255) not null,
     Data_criacao timestamp,
-    ImagemPerfil varchar(255)
+    ImagemPerfil varchar(255),
+    Pontos int  -- adicionado depois
 );
 
 CREATE TABLE notificacoes (
@@ -67,8 +62,12 @@ CREATE TABLE notificacoes (
     id_alheio int
 );
 
-CREATE TABLE seguidores (
-    UserId int primary key,
-    SeguidorId int,
-    Data_seguidor timestamp
+CREATE TABLE user_follows (
+    follower_id INT NOT NULL,
+    following_id INT NOT NULL,
+    follow_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (follower_id, following_id),
+    FOREIGN KEY (follower_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+    FOREIGN KEY (following_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
+

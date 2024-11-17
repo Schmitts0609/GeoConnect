@@ -2,6 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const multer = require('multer');
 const path = require('path');
+const connection = require("../config/db");
 
 
 const storage = multer.diskStorage({
@@ -23,7 +24,11 @@ const {
   listSeguindo,
   storeSeguindo,
   storeImagem,
-  listPesquisa
+  listPesquisa,
+  getUserProfile,
+  verificaSegue,
+  seguirUsuario,
+  deixarDeSeguir
 } = require('../controller/usuariosController');
 
 /**
@@ -128,20 +133,14 @@ router.post('/store/seguindo', storeSeguindo);
  */
 router.post('/list/pesquisa', listPesquisa);
 
-router.post('/store/imagem', (req, res) => {
-  upload.single('inputImagem')(req, res, function(err) {
-    if (err) {
-      // Ocorreu um erro durante o upload
-      console.error('Erro no Multer:', err);
-      return res.status(500).json({
-        success: false,
-        message: 'Erro ao processar o arquivo.',
-        error: err.message
-      });
-    }
-    // Chama a função storeImagem
-    storeImagem(req, res);
-  });
-});
+// Rotas para seguir e deixar de seguir usuários
+router.post('/follow', seguirUsuario);
+router.post('/unfollow', deixarDeSeguir);
+
+// Rota para verificar se um usuário segue outro
+router.get('/segue/:followerId/:followingId', verificaSegue);
+
+// Rota para obter o perfil do usuário
+router.get('/perfil/:id', getUserProfile);
 
 module.exports = router;

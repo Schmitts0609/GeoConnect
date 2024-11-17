@@ -1,159 +1,115 @@
-// Importa a conexão com o banco de dados
-const { log } = require("console");
 const connection = require("../config/db");
-
-// Importa o módulo dotenv para carregar as variáveis de ambiente
-const dotenv = require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
 const stringSimilarity = require('string-similarity');
 
-
-const uploadPath = path.join(__dirname, "..", "uploads");
-
-// Irá criar a pasta uploads se ela já não existir
-if (!fs.existsSync(uploadPath)) {
-  fs.mkdirSync(uploadPath);
-}
-
-// Caminhos para as subpastas curriculos e img_perfil
-const postagemPath = path.join(uploadPath, "ImagemPostagem");
-const imagemPerfilPath = path.join(uploadPath, "ImagemPerfil");
-
-// Irá criar a pasta curriculos se ela já não existir
-if (!fs.existsSync(postagemPath)) {
-  fs.mkdirSync(postagemPath);
-}
-
-// Irá criar a pasta img_perfil se ela já não existir
-if (!fs.existsSync(imagemPerfilPath)) {
-  fs.mkdirSync(imagemPerfilPath);
-}
-
-
-
 // Função para cadastrar um novo usuário
 async function storeUsuarios(request, response) {
-  // Cria um array com os parâmetros do corpo da requisição
-  const params = Array(
+  const params = [
     request.body.nome,
     request.body.email,
     request.body.senha,
     request.body.nickname
-  );
-  
-  // Query SQL para inserir um novo usuário no banco de dados
-  const query = "INSERT INTO usuarios(nome, email, senha, nickname) VALUES(?, ?, ?, ?)";
-  
-  // Executa a query SQL com os parâmetros
-  connection.query(query, params, (err, results) => {
-    // Verifica se a query foi bem-sucedida
-    if(results) {
-      // Retorna uma resposta com status 201 (Created) e um objeto JSON com informações de sucesso
-      response
-        .status(201)
-        .json({
-          success: true,
-          message:"Sucesso!",
-          data: results
-        })
-    } else {
-      // Retorna uma resposta com status 400 (Bad Request) e um objeto JSON com informações de erro
-      response
-        .status(400)
-        .json({
-          success: false,
-          message: "Ops, deu problema!",
-          sql: err
-        })
-    }
-  })
-}
-
-// Função para listar os usuários
-async function listUsuarios(request, response) {
-  
-  const params = [
-      request.body.email,
-      request.body.senha
   ];
-  
-  console.log("Query Parameters:", params);
 
-  const query = `SELECT * FROM usuarios WHERE email = ? AND senha = ?`;
-  
+  const query = "INSERT INTO usuarios(nome, email, senha, nickname) VALUES(?, ?, ?, ?)";
+
   connection.query(query, params, (err, results) => {
-      if (err) {
-          response.status(400).json({
-              success: false,
-              message: "Ops, deu problema!",
-              sql: err
-          });
-      } else {
-          response.status(200).json({
-              success: true,
-              message: "Sucesso!",
-              data: results
-          });
-      }
+    if(results) {
+      response.status(201).json({
+        success: true,
+        message:"Sucesso!",
+        data: results
+      });
+    } else {
+      response.status(400).json({
+        success: false,
+        message: "Ops, deu problema!",
+        sql: err
+      });
+    }
   });
 }
 
+// Função para listar os usuários (login)
+async function listUsuarios(request, response) {
+  const params = [
+    request.body.email,
+    request.body.senha
+  ];
+
+  console.log("Query Parameters:", params);
+
+  const query = `SELECT * FROM usuarios WHERE email = ? AND senha = ?`;
+
+  connection.query(query, params, (err, results) => {
+    if (err) {
+      response.status(400).json({
+        success: false,
+        message: "Ops, deu problema!",
+        sql: err
+      });
+    } else {
+      response.status(200).json({
+        success: true,
+        message: "Sucesso!",
+        data: results
+      });
+    }
+  });
+}
+
+// Função para listar quem o usuário está seguindo
 async function listSeguindo(request, response) {
   const params = [
     request.body.UserId,
   ];
 
-  const query = `SELECT * FROM seguindo WHERE UserId = ?`;
+  const query = `SELECT * FROM user_follows WHERE follower_id = ?`;
 
   connection.query(query, params, (err, results) => {
     if (err) {
-        response.status(400).json({
-            success: false,
-            message: "Ops, deu problema!",
-            sql: err
-        });
+      response.status(400).json({
+        success: false,
+        message: "Ops, deu problema!",
+        sql: err
+      });
     } else {
-        response.status(200).json({
-            success: true,
-            message: "Sucesso!",
-            data: results
-        });
+      response.status(200).json({
+        success: true,
+        message: "Sucesso!",
+        data: results
+      });
     }
   });
 }
 
+// Função para armazenar quem o usuário está seguindo
 async function storeSeguindo(request, response) {
   const params = [
     request.body.UserId,
     request.body.SeguindoId,
   ];
-  const query = `INSERT INTO seguindo(UserId, SeguindoId) VALUES(1, 24)`;
+  const query = `INSERT INTO user_follows(follower_id, following_id) VALUES(?, ?)`;
 
   connection.query(query, params, (err, results) => {
-    // Verifica se a query foi bem-sucedida
     if(results) {
-      // Retorna uma resposta com status 201 (Created) e um objeto JSON com informações de sucesso
-      response
-        .status(201)
-        .json({
-          success: true,
-          message:"Sucesso!",
-          data: results
-        })
+      response.status(201).json({
+        success: true,
+        message:"Sucesso!",
+        data: results
+      });
     } else {
-      // Retorna uma resposta com status 400 (Bad Request) e um objeto JSON com informações de erro
-      response
-        .status(400)
-        .json({
-          success: false,
-          message: "Ops, deu problema!",
-          sql: err
-        })
+      response.status(400).json({
+        success: false,
+        message: "Ops, deu problema!",
+        sql: err
+      });
     }
-  })
+  });
 }
 
+// Função para armazenar imagem
 async function storeImagem(request, response) {
   console.log("Chamou a função");
 
@@ -192,40 +148,11 @@ async function storeImagem(request, response) {
   });
 }
 
-
-async function listUsuarios(request, response) {
-  
-  const params = [
-      request.body.email,
-      request.body.senha
-  ];
-  
-  console.log("Query Parameters:", params);
-
-  const query = `SELECT * FROM usuarios WHERE email = ? AND senha = ?`;
-  
-  connection.query(query, params, (err, results) => {
-      if (err) {
-          response.status(400).json({
-              success: false,
-              message: "Ops, deu problema!",
-              sql: err
-          });
-      } else {
-          response.status(200).json({
-              success: true,
-              message: "Sucesso!",
-              data: results
-          });
-      }
-  });
-}
-
+// Função para pesquisar usuários
 async function listPesquisa(request, response) {
   const valorPesquisa = request.body.valorPesquisa.toLowerCase();
 
-  // Obtenha todos os usuários ou aqueles que correspondem aproximadamente
-  const query = `SELECT Nome, Nickname FROM usuarios`;
+  const query = `SELECT id, Nome, Nickname FROM usuarios`;
 
   connection.query(query, (err, results) => {
     if (err) {
@@ -236,33 +163,26 @@ async function listPesquisa(request, response) {
         error: err
       });
     } else {
-      // Calcular a similaridade entre o termo de pesquisa e cada resultado
       const valorPesquisaLower = valorPesquisa.toLowerCase();
 
-      // Mapear os resultados para incluir a pontuação de similaridade
       const resultadosComPontuacao = results.map(user => {
         const nomeLower = user.Nome.toLowerCase();
         const nicknameLower = user.Nickname.toLowerCase();
 
-        // Calcular a similaridade com o Nome e o Nickname
         const similarityNome = stringSimilarity.compareTwoStrings(valorPesquisaLower, nomeLower);
         const similarityNickname = stringSimilarity.compareTwoStrings(valorPesquisaLower, nicknameLower);
 
-        // Escolher a maior similaridade entre Nome e Nickname
         const maiorSimilaridade = Math.max(similarityNome, similarityNickname);
 
-        // Retornar o usuário com a pontuação de similaridade
         return {
           ...user,
           similarity: maiorSimilaridade
         };
       });
 
-      // Filtrar os resultados com base em um threshold de similaridade (opcional)
-      const threshold = 0.2; // Ajuste conforme necessário
+      const threshold = 0.2;
       const resultadosFiltrados = resultadosComPontuacao.filter(user => user.similarity >= threshold);
 
-      // Ordenar os resultados pela pontuação de similaridade em ordem decrescente
       resultadosFiltrados.sort((a, b) => b.similarity - a.similarity);
 
       response.status(200).json({
@@ -274,8 +194,158 @@ async function listPesquisa(request, response) {
   });
 }
 
+// Função para obter o perfil do usuário
+async function getUserProfile(request, response) {
+  const UserId = request.params.id;
 
-//Exporta as funções para serem utilizadas em outros arquivos
-module.exports = {
-  storeUsuarios, listUsuarios, listSeguindo, storeSeguindo, storeImagem, listPesquisa
+  if (!UserId) {
+    return response.status(400).json({
+      success: false,
+      message: "ID de usuário não fornecido."
+    });
+  }
+
+  try {
+    const userQuery = `SELECT id, Nome, Nickname, ImagemPerfil, Pontos FROM usuarios WHERE id = ?`;
+    const userParams = [UserId];
+
+    connection.query(userQuery, userParams, (err, userResults) => {
+      if (err) {
+        console.error('Erro ao consultar o usuário:', err);
+        return response.status(500).json({
+          success: false,
+          message: "Erro ao obter informações do usuário.",
+          error: err
+        });
+      }
+
+      if (userResults.length === 0) {
+        return response.status(404).json({
+          success: false,
+          message: "Usuário não encontrado."
+        });
+      }
+
+      const user = userResults[0];
+
+      const followersQuery = `SELECT COUNT(*) AS total_followers FROM user_follows WHERE following_id = ?`;
+      const followingQuery = `SELECT COUNT(*) AS total_following FROM user_follows WHERE follower_id = ?`;
+
+      connection.query(followersQuery, [UserId], (err, followersResults) => {
+        if (err) {
+          console.error('Erro ao obter seguidores:', err);
+          return response.status(500).json({
+            success: false,
+            message: "Erro ao obter número de seguidores.",
+            error: err
+          });
+        }
+
+        connection.query(followingQuery, [UserId], (err, followingResults) => {
+          if (err) {
+            console.error('Erro ao obter seguindo:', err);
+            return response.status(500).json({
+              success: false,
+              message: "Erro ao obter número de seguindo.",
+              error: err
+            });
+          }
+
+          const profileData = {
+            id: user.id,
+            nome: user.Nome,
+            nickname: user.Nickname,
+            imagemPerfil: user.ImagemPerfil,
+            pontos: user.Pontos,
+            totalSeguidores: followersResults[0].total_followers,
+            totalSeguindo: followingResults[0].total_following
+          };
+
+          return response.status(200).json({
+            success: true,
+            message: "Perfil obtido com sucesso.",
+            data: profileData
+          });
+        });
+      });
+    });
+  } catch (error) {
+    console.error('Erro inesperado:', error);
+    return response.status(500).json({
+      success: false,
+      message: "Erro interno do servidor.",
+      error: error.message
+    });
+  }
 }
+
+// Função para verificar se um usuário segue outro
+async function verificaSegue(request, response) {
+  const { followerId, followingId } = request.params;
+
+  const query = `SELECT COUNT(*) AS count FROM user_follows WHERE follower_id = ? AND following_id = ?`;
+  const params = [followerId, followingId];
+
+  connection.query(query, params, (err, results) => {
+    if (err) {
+      console.error('Erro ao verificar se o usuário segue:', err);
+      return response.status(500).json({
+        success: false,
+        message: "Erro ao verificar se o usuário segue.",
+        error: err
+      });
+    }
+
+    const segue = results[0].count > 0;
+    return response.status(200).json({
+      success: true,
+      segue: segue
+    });
+  });
+}
+
+// Função para seguir um usuário
+async function seguirUsuario(request, response) {
+  const { followerId, followingId } = request.body;
+
+  if (followerId === followingId) {
+    return response.status(400).json({ success: false, message: "Você não pode seguir a si mesmo." });
+  }
+
+  const query = 'INSERT INTO user_follows (follower_id, following_id) VALUES (?, ?)';
+  connection.query(query, [followerId, followingId], (err, results) => {
+    if (err) {
+      if (err.code === 'ER_DUP_ENTRY') {
+        return response.status(400).json({ success: false, message: "Você já segue este usuário." });
+      }
+      return response.status(500).json({ success: false, message: "Erro ao seguir o usuário.", error: err });
+    }
+    response.status(200).json({ success: true, message: "Usuário seguido com sucesso." });
+  });
+}
+
+// Função para deixar de seguir um usuário
+async function deixarDeSeguir(request, response) {
+  const { followerId, followingId } = request.body;
+
+  const query = 'DELETE FROM user_follows WHERE follower_id = ? AND following_id = ?';
+  connection.query(query, [followerId, followingId], (err, results) => {
+    if (err) {
+      return response.status(500).json({ success: false, message: "Erro ao deixar de seguir o usuário.", error: err });
+    }
+    response.status(200).json({ success: true, message: "Você deixou de seguir o usuário." });
+  });
+}
+
+module.exports = {
+  storeUsuarios,
+  listUsuarios,
+  listSeguindo,
+  storeSeguindo,
+  storeImagem,
+  listPesquisa,
+  getUserProfile,
+  verificaSegue,
+  seguirUsuario,
+  deixarDeSeguir
+};
