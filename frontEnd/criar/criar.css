@@ -178,6 +178,33 @@ main{
     align-items: center;
 }
 
+#inputImagem{
+    padding: 10px;
+    border: 2px solid #760063;
+    border-radius: 4px 4px 4px 4px;
+    background-color: #760063;
+    cursor: pointer;
+    color: #E8E4D6;
+}
+
+#inputImagem:hover {
+    background-color: #E8E4D6;
+    color: #760063;
+}
+
+#submit-arquivo{
+    padding: 10px;
+    border: 2px solid #760063;
+    border-radius: 4px 4px 4px 4px;
+    background-color: #760063;
+    cursor: pointer;
+    color: #E8E4D6;
+}
+
+#submit-arquivo:hover {
+    background-color: #E8E4D6;
+    color: #760063;
+}
 
 .coluna.pequena.direita section{
     width: 45%;
@@ -257,4 +284,80 @@ footer{
     border: none;
     margin-bottom: 0;
     width: 100vw;
+}
+
+#previewContainer {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#previewContainer p {
+    margin-bottom: 10px;
+    font-style: italic;
+    color: black;
+}
+
+#previewImagem{
+    max-width: 820px;
+    max-height: 553px;
+    border: 2px #760063 solid;
+}
+.coluna.pequena.direita a{
+    position: relative;
+    height: 50px;
+    color: currentColor;
+}
+.coluna.pequena.direita p{
+    font-family: "Allerta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    margin-top: 10px;
+}
+.mensagem, .sugerido {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap; /* Impede que os itens se movam para a próxima linha */
+    justify-content: space-between; /* Distribui espaço entre os itens */
+    margin: 10px 0; /* Adiciona um espaço entre as mensagens sugeridas */
+}
+
+.mensagem img, .sugerido img {
+    width: 3vw; 
+    height: auto; 
+    margin-right: 10px;
+    border-radius: 50%;
+    max-width: 3vw;
+    min-width: 50px;
+    flex-shrink: 0; /* Impede que a imagem encolha */
+}
+
+.mensagem button, .sugerido button {
+    background-color: black;
+    color: #E8E4D6;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 150px; /* Mantém a largura fixa do botão */
+    max-width: 150px; /* Limita a largura máxima do botão */
+    height: 50px;
+    font-size: 15px;
+    padding: 10px 15px;
+    margin-top: 10px; 
+}
+
+.mensagem button:hover, .sugerido button:hover {
+    background-color: #760063;
+}
+
+/* Media Queries para ajustes adicionais, se necessário */
+@media (max-width: 768px) {
+    .mensagem, .sugerido {
+        flex-direction: row; /* Mantém a direção em linha em telas menores */
+        align-items: center; /* Alinha os itens no centro */
+    }
+
+    .mensagem button, .sugerido button {
+        width: 150px; /* Mantém a largura fixa do botão */
+    }
 }

@@ -113,7 +113,7 @@ main{
     overflow-y: auto;
     padding: 10px;
     width: 300px;
-    height: auto;
+    height: 638px;
 }
 #nome-usuario{
     margin: 0;
@@ -127,9 +127,20 @@ main{
 }
 #profile-pic{
     border-radius: 75%;
-    width: 10vw;
+    width: 13vw;
     height: 100%;
 
+}
+.buttons{
+    border: 2px solid #760063;
+    border-radius: 4px 4px 4px 4px;
+    background-color: #760063;
+    cursor: pointer;
+    color: #E8E4D6;
+}
+.buttons:hover {
+    background-color: #E8E4D6;
+    color: #760063;
 }
 #seguindo-seguidores{
     display: flex;
@@ -277,3 +288,36 @@ footer{
     margin-bottom: 0;
     width: 100vw;
 }
+
+/* ... (estilos anteriores permanecem os mesmos) ... */
+
+/* Estilos para o grid de imagens */
+.grid-imagens {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .grid-item {
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .grid-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+  
+  /* Ajustes responsivos (opcional) */
+  @media (max-width: 600px) {
+    .grid-imagens {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+  }
+  
+
+
+  

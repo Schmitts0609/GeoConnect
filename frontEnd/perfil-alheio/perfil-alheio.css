@@ -125,9 +125,9 @@ main{
     padding: 20px;
     border-bottom: 3px #760063 solid;
 }
-#profile-pic{
+#imagem-perfil{
     border-radius: 75%;
-    width: 10vw;
+    width: 13vw;
     height: 100%;
 
 }
@@ -175,7 +175,7 @@ main{
 }
 
 #perfil-button{
-    border: 1px black solid
+    border: 2px black solid
 }
 #notificacao-button{
     border: 2px black solid
@@ -276,4 +276,18 @@ footer{
     border: none;
     margin-bottom: 0;
     width: 100vw;
+}
+
+#botao-seguir {
+    padding: 10px;
+    border: 2px solid #760063;
+    border-radius: 4px;
+    background-color: #760063;
+    cursor: pointer;
+    color: #E8E4D6;
+}
+
+#botao-seguir:hover {
+    background-color: #E8E4D6;
+    color: #760063;
 }

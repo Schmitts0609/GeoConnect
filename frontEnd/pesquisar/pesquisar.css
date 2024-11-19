@@ -156,23 +156,23 @@ main{
 /* Estilos para o container dos resultados */
 #search-results {
     margin-top: 20px;
-  }
+}
   
-  .user-result p {
+.user-result p {
     margin: 5px 0;
-  }
+}
 
-  .user-result{
+.user-result{
     background-color: black;
     color: #E8E4D6;
     border: 3px #760063 solid;
     border-bottom: none;
     padding: 5px;
     text-align: left;
-  }
-  .user-result:last -child{
+}
+.user-result:last -child{
     border-bottom: 3px #760063 solid;
-  }
+}
   
 
 .coluna.pequena.esquerda{
@@ -317,4 +317,17 @@ footer{
     border: none;
     margin-bottom: 0;
     width: 100vw;
+}
+.ver-perfil-btn{
+    padding: 10px;
+    border: 2px solid #760063;
+    border-radius: 4px;
+    background-color: #760063;
+    cursor: pointer;
+    color: #E8E4D6;
+}
+
+.ver-perfil-btn:hover {
+    background-color: #E8E4D6;
+    color: #760063;
 }

@@ -1,5 +1,5 @@
 // Função para obter parâmetros da URL
-function getQueryParams() {
+  function getQueryParams() {
     const params = {};
     const queryString = window.location.search.substring(1);
     const queries = queryString.split("&");
@@ -29,7 +29,6 @@ function getQueryParams() {
         const data = content.data;
   
         // Atualizar os elementos da página com os dados do usuário
-        document.getElementById("imagem-perfil").src = data.imagemPerfil || '../assets/default-avatar.png';
         document.getElementById("nome-usuario").textContent = data.nome;
         document.getElementById("nickname-usuario").textContent = `@${data.nickname}`;
         document.getElementById("numero-seguidores").textContent = data.totalSeguidores;

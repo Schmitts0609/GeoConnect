@@ -6,10 +6,6 @@ a:visited{
     color: inherit;
     text-decoration: none;
 }
-a:not(:visited){
-    color: inherit;
-    text-decoration: none;
-}
 body{
     background-color: #E8E4D6;
     min-height: 100vh;
@@ -83,8 +79,6 @@ main{
     width: 4rem;
     height: 4rem;
     border-radius: 100%;
-
-
 }
 
 .stories-container .content .img-container img{
@@ -100,13 +94,11 @@ main{
     font-size: 15px;
     align-items: center;
 }
-
 .coluna{
     float: left;
     box-sizing: border-box;
     text-align: center;
     position: relative;
-    
 }
 .pequena{
     flex: 1;
@@ -117,71 +109,15 @@ main{
 .coluna:not(:first-child){
     border-left: 3px solid #760063;
 }
-.linha::after{
-    content: "";
-    display: table;
-    clear: both;
-}
-footer{
-    background-color: #760063;
-    height: 5vh;
-    border: none;
-    margin-bottom: 0;
-    width: 100vw;
-}
 .coluna.grande {
     overflow-y: auto;
     padding: 10px;
-    height: 638px;
-    width: 865px;
-}
-
-.post {
-    margin-bottom: 20px;
-    padding: 10px;
-}
-
-.post img {
-    width: 55%;
+    width: 300px;
     height: auto;
-    object-fit: cover;
-    border-radius: 10px;
-    min-width: 300px;
-}
-.perfil-post{
     display: flex;
-    flex-direction: row;
-    margin-left: 23%;
-    width: 20vw;
-    height: 5vh;
-    min-width: 100px;
+    flex-direction: column;
+    justify-content: space-between;
 }
-.post p{
-    border-bottom: 2px #760063 solid;
-    padding-bottom: 25px;
-}
-.perfil-post img {
-    max-width: 50px;
-    width: 100%;
-    min-height: 50px;
-    height: auto;
-    border-radius: 50%;
-    object-fit: cover;
-}
-.perfil-post p{
-    margin-left: 10px;
-    font-size: 20px;
-    height: 5vh;
-    margin-top: 10px;
-
-}
-.post p {
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-
-
 .coluna.pequena.esquerda{
     display: flex;
     flex-direction: column;
@@ -189,8 +125,6 @@ footer{
     justify-content: space-between;
     gap: 30px;
     align-items: center;
-    height: 638px;
-    width: 421px;
 }
 .coluna.pequena.esquerda a{
     width: 200px;
@@ -216,23 +150,15 @@ footer{
     font-style: normal;
     font-size: 20px;
 }
-
-
-
 .coluna.pequena.esquerda a i{
     font-size: 30px;
 }
-
-
-
-
-
-#home-button{
+#perfil-button{
     background-color: black;
     color: #E8E4D6;
     border: 1px black solid
 }
-#notificacao-button{
+#home-button{
     border: 2px black solid
 }
 #criar-button{
@@ -241,22 +167,18 @@ footer{
 #pesquisar-button{
     border: 2px black solid
 }
-#perfil-button{
+#notificacao-button{
     border: 2px black solid
 }
-
-
 .coluna.pequena.direita{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    height: 638px;
-    width: 421px;
-
 }
 
+    
 .coluna.pequena.direita section{
     width: 45%;
     height: 50px;
@@ -272,7 +194,6 @@ footer{
 .coluna.pequena.direita a{
     position: relative;
     height: 50px;
-    color: currentColor;
 }
 .coluna.pequena.direita p{
     font-family: "Allerta", sans-serif;
@@ -281,61 +202,112 @@ footer{
     font-size: 20px;
     margin-top: 10px;
 }
-.mensagem, .sugerido {
+.mensagem{
     display: flex;
     align-items: center;
-    flex-wrap: nowrap; /* Impede que os itens se movam para a próxima linha */
-    justify-content: space-between; /* Distribui espaço entre os itens */
-    margin: 10px 0; /* Adiciona um espaço entre as mensagens sugeridas */
 }
 
-.mensagem img, .sugerido img {
-    width: 3vw; 
-    height: auto; 
+.mensagem img{
+    width: 50px;
+    height: auto;
     margin-right: 10px;
     border-radius: 50%;
-    max-width: 3vw;
-    min-width: 50px;
-    flex-shrink: 0; /* Impede que a imagem encolha */
 }
 
-.mensagem button, .sugerido button {
+.mensagem button{
     background-color: black;
     color: #E8E4D6;
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    width: 150px; /* Mantém a largura fixa do botão */
-    max-width: 150px; /* Limita a largura máxima do botão */
+    width: 150px;
     height: 50px;
     font-size: 15px;
     padding: 10px 15px;
-    margin-top: 10px; 
 }
 
-.mensagem button:hover, .sugerido button:hover {
+.sugerido{
+    display: flex;
+    align-items: center;
+}
+
+.sugerido img{
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.sugerido button{
+    background-color: black;
+    color: #E8E4D6;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+    padding: 10px 15px;
+}
+footer{
     background-color: #760063;
+    height: 5vh;
+    border: none;
+    margin-bottom: 0;
+    width: 100vw;
 }
 
-/* Media Queries para ajustes adicionais, se necessário */
-@media (max-width: 768px) {
-    .mensagem, .sugerido {
-        flex-direction: row; /* Mantém a direção em linha em telas menores */
-        align-items: center; /* Alinha os itens no centro */
+.grid-cupons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 10px;
+  }
+  
+  .grid-item {
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    border: 2px #760063 solid;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  .grid-item:hover {
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    border: 3px #760063 solid;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+
+ 
+  
+  /*.grid-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }*/
+  
+  /* Ajustes responsivos (opcional) */
+  @media (max-width: 600px) {
+    .grid-imagens {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
+  }
 
-    .mensagem button, .sugerido button {
-        width: 150px; /* Mantém a largura fixa do botão */
-    }
-}
-#feed-container {
-    overflow-y: scroll; 
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    height: 650px;
-    padding: 20px;
+#botao-selecionar {
+    padding: 10px;
+    border: 2px solid #760063;
+    border-radius: 4px;
+    background-color: #760063;
+    cursor: pointer;
+    color: #E8E4D6;
 }
 
-#feed-container::-webkit-scrollbar {
-    display: none;
+#botao-selecionar:hover {
+    background-color: #E8E4D6;
+    color: #760063;
 }

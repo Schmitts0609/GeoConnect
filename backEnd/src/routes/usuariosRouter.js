@@ -116,6 +116,22 @@ router.post('/store/seguindo', storeSeguindo);
 //  */
 // router.post('/store/imagem', upload.single('inputImage'), storeImagem);
 
+router.post('/store/imagem', (req, res) => {
+  upload.single('inputImagem')(req, res, function(err) {
+    if (err) {
+      // Ocorreu um erro durante o upload
+      console.error('Erro no Multer:', err);
+      return res.status(500).json({
+        success: false,
+        message: 'Erro ao processar o arquivo.',
+        error: err.message
+      });
+    }
+    // Chama a função storeImagem
+    storeImagem(req, res);
+  });
+});
+
 /**
  * @swagger
  * /list/pesquisa:

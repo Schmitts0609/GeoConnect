@@ -18,7 +18,6 @@ async function carregarPerfil() {
         console.log('Dados recebidos:', data); // Adicione este log para depuração
   
         // Atualizar os elementos da página com os dados do usuário
-        document.getElementById("imagem-perfil").src = data.imagemPerfil || '../assets/default-avatar.png';
         document.getElementById("nome-usuario").textContent = data.nome;
         document.getElementById("nickname-usuario").textContent = `@${data.nickname}`;
         document.getElementById("numero-seguidores").textContent = data.totalSeguidores;
@@ -34,4 +33,3 @@ async function carregarPerfil() {
   
   // Chama a função para carregar o perfil quando a página é carregada
   document.addEventListener('DOMContentLoaded', carregarPerfil);
-  

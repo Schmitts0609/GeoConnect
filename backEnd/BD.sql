@@ -18,7 +18,7 @@ CREATE TABLE estabelecimentos (
     CHECK (codigo_validador_atual BETWEEN 1000000 AND 9999999),
     ultimo_codigo_validador int,
     CHECK (ultimo_codigo_validador BETWEEN 1000000 AND 9999999),
-    hora_modificacao timestamp
+    hora_modificacao timestamp default current_timestamp
 );
 
 CREATE TABLE historico_login (
@@ -33,7 +33,7 @@ CREATE TABLE postagens (
     NomeImagem varchar(255),
     ImagemPerfil varchar(255),
     Tipo_postagem varchar(255),
-    Hora_postagem timestamp,
+    Hora_postagem timestamp default current_timestamp,
     Legenda varchar(255)
 );
 
@@ -41,25 +41,26 @@ CREATE TABLE resgate_cupom (
     id int primary key auto_increment,
     UserId int,
     CupomId int,
-    Data_resgate timestamp,
+    Data_resgate timestamp default current_timestamp,
     Data_utilizado varchar(255)
 );
 
-CREATE TABLE usuarios (
+REATE TABLE usuarios (
     id int primary key auto_increment,
     Nome varchar(255) not null,
     Nickname varchar(18) not null,
     Email varchar(254) not null,
     Senha varchar(255) not null,
-    Data_criacao timestamp,
+    Data_criacao timestamp default current_timestamp,
     ImagemPerfil varchar(255),
-    Pontos int  -- adicionado depois
+    Pontos int
 );
 
 CREATE TABLE notificacoes (
     id int auto_increment primary key,
     id_usuario int,
-    id_alheio int
+    id_alheio int,
+    notificacao varchar(255)
 );
 
 CREATE TABLE user_follows (

@@ -29,7 +29,7 @@ async function storeUsuarios(request, response) {
       });
     }
   });
-}
+};
 
 // Função para listar os usuários (login)
 async function listUsuarios(request, response) {
